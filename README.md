@@ -1,6 +1,6 @@
 # Hirb-colors
 
-hirb-colors fixes alignment for strings containing color codes.
+Fixes alignment for strings containing color codes.
 
 ## Attribution
 
