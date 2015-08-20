@@ -1,7 +1,7 @@
 module Hirb
   module Colors
     module StringUtil
-      COLORIZED_REGEX = /\e\[\d+m/
+      COLORIZED_REGEX = /(\e\[(?:\d|;)+m)/
 
       # :stopdoc:
       if RUBY_VERSION < '1.9'
@@ -54,7 +54,7 @@ module Hirb
         # store the codes and their position in the original string
         markers = []
         string.scan(COLORIZED_REGEX) do |code|
-          marker = { :code     => code,
+          marker = { :code     => code.first,
                      :position => Regexp.last_match.offset(0).first
           }
           markers << marker
@@ -63,7 +63,7 @@ module Hirb
         markers_before_slice = []
         markers_in_slice     = []
         markers_after_slice  = []
-        # interate over elements in code_markers
+        # iterate over elements in code_markers
         # will be mutating array so cannot use .each
         markers.size.times do
           marker = markers.shift
